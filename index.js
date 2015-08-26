@@ -19,7 +19,7 @@ var methods = {
 	header: function() {
 		arguments[0] = methods.toHeader(arguments[0]);
 		console.log.apply(console, arguments);
-	};
+	}
 };
 
 console.header = methods.header.bind(methods);
