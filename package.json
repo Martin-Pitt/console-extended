@@ -1,6 +1,6 @@
 {
   "name": "console-extended",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Extend console object with more formatting/display methods for the CLI",
   "main": "index.js",
   "scripts": {
