@@ -12,18 +12,18 @@ For example:
 ## Usage
 
 Install the module
-```
+```bash
 npm install console-extended
 ```
 
 Then require it in your Node.js code:
-```
+```bash
 require('console-extended');
 ```
 This will extend your `console` object with additional methods/properties.
 
 Thus you can start using it:
-```
+```javascript
 console.header('foobar', 'Hello World!');
 ```
 
@@ -33,7 +33,7 @@ console.header('foobar', 'Hello World!');
 
 ### `console.header(header, log...)`
 Currently it exports `header` method, which styles and pads the first argument as a "header". This is to help you signify from which sub-system a log was made from at a glance. Instead you could use it to log the date and time as well.
-```
+```javascript
 console.header('DNS', ipaddress, 'requested the DNS for', 'example.martin.dev');
 console.header('App', 'The user uploaded a', 'photo');
 console.header('Backup', 'I made a backup of the server at', '12am');
@@ -41,12 +41,12 @@ console.header('App', 'The user updated their profile');
 ```
 
 The `header` takes the first argument, styles it and combines it with the other arguments in a call to `console.log`, but if you prefer, you can call the styling function on its' own:
-```
+```javascript
 var profilerHeader = console.ext.toHeader('Profiler');
 ```
 
 This might be useful if you wish to use it for other `console.*` methods, such as time/timeEnd:
-```
+```javascript
 console.time(console.ext.toHeader('Backup') + ' for 12am');
 // ...
 console.timeEnd(console.ext.toHeader('Backup') + ' for 12am');
@@ -57,7 +57,7 @@ console.timeEnd(console.ext.toHeader('Backup') + ' for 12am');
 ## Examples
 
 Here are some real-world examples I took from my localhost master server, as depicted with the example picture above:
-```
+```javascript
 console.header('DNS', 'Nameserver listening on', this.address());
 console.header('DNS', 'Request of ', name,' by', request.address);
 // ...
