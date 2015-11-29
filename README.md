@@ -17,7 +17,7 @@ npm install console-extended
 ```
 
 Then require it in your Node.js code:
-```bash
+```javascript
 require('console-extended');
 ```
 This will extend your `console` object with additional methods/properties.
