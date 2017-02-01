@@ -1,14 +1,13 @@
 {
   "name": "console-extended",
   "version": "1.1.0",
-  "description": "Extend console object with more formatting/display methods for the CLI",
+  "description": "Extend console object with more formatting/display methods for ANSI colours in CLI & compat for Node.js --inspect",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "https://github.com/Martin-Pitt/console-extended.git",
   "author": "Martin Pitt <martin.r.pitt@gmail.com> (http://martinpitt.co.uk)",
   "license": "MIT",
-  "dependencies": {
-    "colors": "^1.1.2"
-  }
+  "dependencies": {}
 }
