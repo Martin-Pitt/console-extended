@@ -1,4 +1,4 @@
-const isInspected = process.execArgv.includes('--inspect');
+const isInspected = process.execArgv.some(arg => arg.startsWith('--inspect'));
 const util = require('util');
 const color = require('ansicolour').nice;
 
@@ -47,33 +47,55 @@ var methods = {
 	header: function(heading, ...args) {
 		let datetime = '[' + (new Date().toJSON()) + ']';
 		heading = datetime.dim + this.toHeader(heading);
-		let output = [heading].concat(args.map(arg => typeof arg === 'string'? arg : this.inspect(arg))).join(' ');
-		if(isInspected) console.log(...color.parse(output).browserConsoleArguments);
-		else console.log(output);
+		if(isInspected)
+		{
+			let output = [heading].concat(args);
+			console.log(...output.map(d => (typeof d === 'string')? color.parse(d).spans.reduce((str, p) => str + p.text, '') : d));
+			// console.log(color.parse(output).spans.reduce((str, p) => str + p.text, '')); // console.log(...color.parse(output).browserConsoleArguments);
+		}
+		
+		else
+		{
+			let output = [heading].concat(args.map(arg => typeof arg === 'string'? arg : this.inspect(arg))).join(' ');
+			console.log(output);
+		}
 	},
 	
 	method: function(heading, name, args, retrn) {
 		let datetime = '[' + (new Date().toJSON()) + ']';
 		heading = datetime.dim + this.toHeader(heading);
-		let output = [heading].concat(this.toMethod(name, args, retrn)).join(' ');
-		if(isInspected) console.log(...color.parse(output).browserConsoleArguments);
-		else console.log(output);
+		if(isInspected)
+		{
+			let output = [heading].concat(this.toMethod(name, args, retrn));
+			console.log(...output.map(d => (typeof d === 'string')? color.parse(d).spans.reduce((str, p) => str + p.text, '') : d));
+			// color.parse(output).spans.reduce((str, p) => str + p.text, '')); // console.log(...color.parse(output).browserConsoleArguments);
+		}
+		
+		else
+		{
+			let output = [heading].concat(this.toMethod(name, args, retrn)).join(' ');
+			console.log(output);
+		}
 	},
 	
 	toMethod: function(name, args, retrn) {
 		if(isInspected)
 		{
-			let out = [name.dim];
-			if(args === undefined) out.push('()'.dim);
+			let out = [name];
+			if(args === undefined) out.push('()');
 			else
 			{
-				out.push('('.dim);
+				out.push('(');
 				if(!Array.isArray(args)) out.push(args);
-				else args.forEach((arg, i, a) => { out.push(this.inspect(arg)); if(i < a.length-1) out.push(','.dim) });
-				out.push(')'.dim);
+				else args.forEach((arg, i, a) => {
+					// out.push(util.inspect(arg, { depth: null, colors: false }));
+					out.push(arg);
+					if(i < a.length-1) out.push(',');
+				});
+				out.push(')');
 			}
 			
-			if(retrn !== undefined) out.push(' return '.dim, retrn);
+			if(retrn !== undefined) out.push('return', retrn); // util.inspect(retrn, { depth: null, colors: false }));
 			
 			return out;
 		}
@@ -84,10 +106,10 @@ var methods = {
 			else
 			{
 				if(!Array.isArray(args)) args = [args];
-				args = '('.dim + args.map(arg => this.inspect(arg)).join(', '.dim) + ')'.dim;
+				args = '('.dim + args.map(arg => util.inspect(arg, { depth: null, colors: true })).join(', '.dim) + ')'.dim;
 			}
 			
-			if(retrn !== undefined) args += ' return '.dim + this.inspect(retrn);
+			if(retrn !== undefined) args += ' return '.dim + util.inspect(retrn, { depth: null, colors: true });
 			return [name.dim + args];
 		}
 	},
@@ -104,10 +126,10 @@ var methods = {
 			iter = 41;
 			while(iter-->0) log += char;
 			log = log.dim + ' ';
-			iter = 96;
+			iter = isInspected? 32 : 96;
 			while(iter-->0) log += char;
 			
-			if(isInspected) log = color.parse(log).browserConsoleArguments;
+			if(isInspected) log = color.parse(log).spans.reduce((str, p) => str + p.text, ''); // color.parse(log).browserConsoleArguments;
 			this.hr_cache[char] = log;
 		}
 		
