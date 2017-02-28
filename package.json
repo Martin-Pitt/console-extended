@@ -10,6 +10,6 @@
   "author": "Martin Pitt <martin.r.pitt@gmail.com> (http://martinpitt.co.uk)",
   "license": "MIT",
   "dependencies": {
-    "ansicolour": "^1.x"
+    "ansicolour": "1.x"
   }
 }
