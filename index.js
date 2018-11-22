@@ -2,29 +2,6 @@ const isInspected = process.execArgv.some(arg => arg.startsWith('--inspect'));
 const util = require('util');
 const color = require('ansicolour').nice;
 
-if(isInspected)
-{
-	util.inspect.styles.number = 'blue';
-	util.inspect.styles.boolean = 'magenta';
-	util.inspect.styles.string = 'red';
-	util.inspect.styles.date = 'cyan';
-	util.inspect.styles.null = 'magenta';
-	util.inspect.styles.undefined = 'gray';
-	util.inspect.styles.special = 'magenta';
-}
-
-else
-{
-	util.inspect.styles.number = 'cyan';
-	util.inspect.styles.boolean = 'cyan';
-	util.inspect.styles.string = 'red';
-	util.inspect.styles.date = 'italic';
-	util.inspect.styles.null = 'italic';
-	util.inspect.styles.undefined = 'italic';
-	util.inspect.styles.special = 'bold';
-}
-
-
 
 var methods = {
 	pad: function(str, align, width) {
