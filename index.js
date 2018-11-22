@@ -11,7 +11,6 @@ if(isInspected)
 	util.inspect.styles.null = 'magenta';
 	util.inspect.styles.undefined = 'gray';
 	util.inspect.styles.special = 'magenta';
-	util.inspect.styles.name = 'magenta';
 }
 
 else
@@ -23,7 +22,6 @@ else
 	util.inspect.styles.null = 'italic';
 	util.inspect.styles.undefined = 'italic';
 	util.inspect.styles.special = 'bold';
-	util.inspect.styles.name = 'bold';
 }
 
 
